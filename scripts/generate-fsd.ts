@@ -36,7 +36,7 @@ const FSD_STRUCTURE = {
 };
 
 // 디렉토리 생성 함수
-function createDirectory(dirPath) {
+function createDirectory(dirPath: string) {
   if (!fs.existsSync(dirPath)) {
     fs.mkdirSync(dirPath, { recursive: true });
     console.log(`✅ Created directory: ${dirPath}`);
@@ -44,7 +44,7 @@ function createDirectory(dirPath) {
 }
 
 // 파일 생성 함수
-function createFile(filePath, content = '') {
+function createFile(filePath: string, content = '') {
   if (!fs.existsSync(filePath)) {
     fs.writeFileSync(filePath, content);
     console.log(`✅ Created file: ${filePath}`);
@@ -52,7 +52,7 @@ function createFile(filePath, content = '') {
 }
 
 // index.ts 파일 내용 생성
-function generateIndexContent(layer, slice = null, segment = null) {
+function generateIndexContent(layer: string, slice: string | null = null, segment: string | null = null) {
   if (segment) {
     // 세그먼트별 index.ts
     switch (segment) {
@@ -128,7 +128,7 @@ function generateFullStructure() {
 }
 
 // 특정 슬라이스 생성
-function generateSlice(layer, sliceName, segments = []) {
+function generateSlice(layer: string, sliceName: string, segments: string[] = []) {
   const srcPath = path.join(process.cwd(), 'src');
   const layerPath = path.join(srcPath, layer);
   const slicePath = path.join(layerPath, sliceName);
@@ -163,7 +163,7 @@ function generateSlice(layer, sliceName, segments = []) {
 }
 
 // 특정 세그먼트 생성
-function generateSegment(layer, sliceName, segmentName) {
+function generateSegment(layer: string, sliceName: string, segmentName: string) {
   const srcPath = path.join(process.cwd(), 'src');
   const segmentPath = path.join(srcPath, layer, sliceName, segmentName);
   
@@ -194,7 +194,7 @@ function main() {
       break;
       
     case 'slice':
-      const [, layer, sliceName, ...segments] = args;
+      const [, layer, sliceName, ...segments]: string[] = args;
       if (!layer || !sliceName) {
         console.error('❌ Usage: npm run fsd:slice <layer> <slice-name> [segments...]');
         return;
